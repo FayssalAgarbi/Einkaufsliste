@@ -51,7 +51,7 @@
         <ImageButton
             android:id="@+id/btnDelete"
             android:layout_width="112dp"
-            android:layout_height="46dp"g
+            android:layout_height="46dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
             android:background="#0000"
