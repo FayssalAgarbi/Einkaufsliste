@@ -14,9 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-/**
- * Created by User on 2/28/2017.
- */
+
 
 public class ListDataActivity extends AppCompatActivity {
 
@@ -30,7 +28,7 @@ public class ListDataActivity extends AppCompatActivity {
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_layout);
-        mListView = (ListView) findViewById(R.id.listView);
+        mListView = findViewById(R.id.listView);
         mDatabaseHelper = new DatabaseHelper(this);
     }
 

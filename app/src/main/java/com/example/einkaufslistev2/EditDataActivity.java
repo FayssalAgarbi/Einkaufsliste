@@ -11,9 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * Created by User on 2/28/2017.
- */
+
 
 public class EditDataActivity extends AppCompatActivity {
 
@@ -31,9 +29,9 @@ public class EditDataActivity extends AppCompatActivity {
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_data_layout);
-        btnSave = (ImageButton) findViewById(R.id.btnSave);
-        btnDelete = (ImageButton) findViewById(R.id.btnDelete);
-        editable_item = (EditText) findViewById(R.id.editable_item);
+        btnSave = findViewById(R.id.btnSave);
+        btnDelete = findViewById(R.id.btnDelete);
+        editable_item = findViewById(R.id.editable_item);
         mDatabaseHelper = new DatabaseHelper(this);
 
         //get the intent extra from the ListDataActivity
@@ -53,8 +51,16 @@ public class EditDataActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String item = editable_item.getText().toString();
                 if(!item.equals("")){
-                    mDatabaseHelper.updateName(item,selectedID,selectedName);
-                }else{
+                    if(!selectedName.equals(item)) {
+                        mDatabaseHelper.updateName(item, selectedID, selectedName);
+                        toastMessage("Name successfully saved");
+                        finish();
+                    }
+                    else {
+                        toastMessage("You didn't change anything");
+                    }
+                }
+                else{
                     toastMessage("You must enter a name");
                 }
             }
@@ -65,7 +71,8 @@ public class EditDataActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mDatabaseHelper.deleteName(selectedID,selectedName);
                 editable_item.setText("");
-                toastMessage("removed from database");
+                toastMessage("Removed from database");
+                finish();
             }
         });
 

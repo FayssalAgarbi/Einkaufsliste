@@ -9,9 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 
-/**
- * Created by User on 2/28/2017.
- */
+
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -93,7 +91,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
 
     }
-    //this is what makes changing the colors work
+    /**
+     * This is what makes changing the colors work
+     * It increments the Color ID such that the Adapter will show a different color
+     * @param oldColorID
+     * @param id
+      */
+
     public void incrementColorID(int oldColorID, int id){
         SQLiteDatabase db = this.getWritableDatabase();
         String query;
@@ -109,7 +113,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     " AND " + COL3 + " = '" + oldColorID + "'";
         }
         db.execSQL(query);
-
     }
     /**
      * Updates the name field

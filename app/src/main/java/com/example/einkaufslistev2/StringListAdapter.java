@@ -39,7 +39,7 @@ public class StringListAdapter extends ArrayAdapter<String> {
         /** getting the name of the view in question */
         Cursor data = mDatabaseHelper.getItemID(getItem(position).toString());
 
-        //getting the id of the view
+        /** Getting the id of the view */
         int itemID = -1;
         while(data.moveToNext()){
             itemID=data.getInt(0);

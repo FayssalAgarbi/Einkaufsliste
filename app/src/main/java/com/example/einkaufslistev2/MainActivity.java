@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editText = (EditText) findViewById(R.id.editText);
-        btnAdd = (ImageButton) findViewById(R.id.btnAdd);
-        btnViewData = (ImageButton) findViewById(R.id.btnView);
-        btnDeleteTable = (ImageButton) findViewById(R.id.btnDelete);
+        editText = findViewById(R.id.editText);
+        btnAdd = findViewById(R.id.btnAdd);
+        btnViewData = findViewById(R.id.btnView);
+        btnDeleteTable = findViewById(R.id.btnDelete);
         mDatabaseHelper = new DatabaseHelper(this);
 
         btnDeleteTable.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String newEntry = editText.getText().toString();
                 if (editText.length() != 0) {
-                    AddData(newEntry);
+                    String[] result = newEntry.split(",");
+                    for(int counter = 0; counter < result.length; counter++) {
+                        AddData(result[counter]);
+                    }
                     editText.setText("");
                 } else {
                     toastMessage("You must put something in the text field!");
