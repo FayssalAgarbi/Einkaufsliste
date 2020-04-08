@@ -37,7 +37,9 @@ public class StringListAdapter extends ArrayAdapter<String> {
         }
 
         /** getting the name of the view in question */
-        Cursor data = mDatabaseHelper.getItemID(getItem(position).toString());
+        Cursor data = mDatabaseHelper.getItemID(getItem(position));
+
+        // TODO: finding a better way to get the Color.
 
         /** Getting the id of the view */
         int itemID = -1;

@@ -6,8 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.nfc.Tag;
 import android.util.Log;
-
 
 
 
@@ -41,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+        Log.d(TAG, "dropTable: Dropping the table "+TABLE_NAME+ " and recreating it");
     }
     public boolean addData(String item) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -52,11 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME, null, contentValues);
 
         //if date as inserted incorrectly it will return -1
-        if (result == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return result != -1;
     }
 
     /**
@@ -66,7 +63,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME;
+
         Cursor data = db.rawQuery(query, null);
+        Log.d(TAG, "getData: querying the entire Table");
         return data;
     }
 
@@ -75,11 +74,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param name
      * @return
      */
+    // vulnerable to SQL injections, needs to change!
     public Cursor getItemID(String name){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT " + COL1 + " FROM " + TABLE_NAME +
                 " WHERE " + COL2 + " = '" + name + "'";
         Cursor data = db.rawQuery(query, null);
+        Log.d(TAG, "getItemID: Getting the ItemID of "+ name);
         return data;
     }
     public Cursor getColorState(int position){
@@ -87,13 +88,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT " + COL3 + " FROM " + TABLE_NAME +
                 " WHERE " + COL1 + " = '" + position + "'";
         Cursor data = db.rawQuery(query, null);
-
+        Log.d(TAG, "getColorState: Getting the Current Color ID of the view at position "+position);
         return data;
 
     }
     /**
      * This is what makes changing the colors work
      * It increments the Color ID such that the Adapter will show a different color
+     * However there is probably quite some  room for improvement
      * @param oldColorID
      * @param id
       */
@@ -112,6 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     " = '" + 0 + "' WHERE " + COL1 + " = '" + id + "'" +
                     " AND " + COL3 + " = '" + oldColorID + "'";
         }
+        Log.d(TAG, "incrementColorID: incrementing the Color with the ID "+ oldColorID+ " at the item ID "+id);
         db.execSQL(query);
     }
     /**
