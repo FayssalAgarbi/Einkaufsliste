@@ -2,10 +2,8 @@ package com.example.einkaufslistev2;
 
 
 import android.content.Context;
-
 import android.database.Cursor;
 import android.graphics.Color;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,13 +57,13 @@ public class StringListAdapter extends ArrayAdapter<String> {
                 convertView.setBackgroundColor(Color.parseColor("#3195F9"));
                 break;
             case 1:
-                convertView.setBackgroundColor(Color.GREEN);
+                convertView.setBackgroundColor(Color.parseColor("#38C89C"));
                 break;
             case 2:
-                convertView.setBackgroundColor(Color.YELLOW);
+                convertView.setBackgroundColor(Color.parseColor("#F0C11A"));
                 break;
             case 3:
-                convertView.setBackgroundColor(Color.RED);
+                convertView.setBackgroundColor(Color.parseColor("#E74C3C"));
                 break;
         }
         return super.getView(position, convertView, parent);
