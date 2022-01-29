@@ -40,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
                 String userInput = editText.getText().toString();
                 if (!userInput.isEmpty()) {
                     String[] result = userInput.split(",");
-                    for(int counter = 0; counter < result.length; counter++) {
-                        AddData(result[counter]);
+                    for (String s : result) {
+                        s = s.trim();
+                        if(!s.isEmpty()) AddData(s);
                     }
                     editText.setText("");
                 } else {
