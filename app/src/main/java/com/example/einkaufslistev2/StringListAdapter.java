@@ -15,14 +15,12 @@ import java.util.ArrayList;
 public class StringListAdapter extends ArrayAdapter<String> {
 
     private static final String TAG = "StringListAdapter";
-    private Context mContext;
     DatabaseHelper mDatabaseHelper;
 
 
     public StringListAdapter( Context context, int resource,  ArrayList<String> objects) {
         super(context, resource, objects);
-        mContext = context;
-        mDatabaseHelper = new DatabaseHelper(mContext);
+        mDatabaseHelper = new DatabaseHelper(context);
     }
 
 
@@ -33,6 +31,7 @@ public class StringListAdapter extends ArrayAdapter<String> {
 
             convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
         }
+        convertView.setMinimumHeight(150);
 
         /** getting the name of the view in question */
         Cursor data = mDatabaseHelper.getItemID(getItem(position));
